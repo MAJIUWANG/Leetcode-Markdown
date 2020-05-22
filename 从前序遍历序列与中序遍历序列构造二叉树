@@ -1,0 +1,27 @@
+public class Solution {
+	 private static HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
+	 public static TreeNode buildTree(int[] preorder, int[] inorder) {
+   //构造哈希表方便直接通过前序序列根节点键值寻找中序序列中根节点位置
+		 for(int i = 0; i < inorder.length; i++) {
+			 hash.put(inorder[i], i);
+		 }
+		 return myTree(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1);
+	    }
+    
+	 public static TreeNode myTree(int[] preorder, int pl, int pr, int[] inorder, int il, int ir) {
+		 if(pl > pr) return null;
+		 TreeNode root = new TreeNode(preorder[pl]);
+		 int in_root = hash.get(preorder[pl]);
+		 int left_size = in_root - il;
+		 root.left = myTree(preorder, pl+1, pl+left_size, inorder, il, in_root-1);
+		 root.right = myTree(preorder, pl+left_size+1, pr, inorder, in_root+1, il);
+		 return root;
+	 }
+	 public static void main(String[] args){
+		int[] preorder = {3,9,20,15,7};
+		int[] inorder = {9,3,15,20,7};
+		TreeNode t = new TreeNode(0);
+		t = buildTree(preorder, inorder);
+		System.out.println(t.val);
+	}
+}
