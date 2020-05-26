@@ -1,0 +1,33 @@
+package leetcode;
+import java.util.*;
+import java.math.*;
+import java.io.*;
+
+public class Solution {
+	 public static int findDuplicate(int[] nums) {
+		 int slow = 0;
+		 int fast = 0;
+		 while(true) {
+			 slow = nums[slow];
+			 fast = nums[nums[fast]];
+			 if(slow == fast) {
+				 //将fast清零以找到环的入口，因为此时的slow与fast位于同一位置，而fast比slow多走了一倍的距离，（因为fast每次走2步，slow走1步）
+				 //说明slow(从0到目前的位置)走的距离与fast多走的距离（从目前的位置沿着环绕N圈）长度一致，且中间一定有一段重合
+				 //既然如此，他们一定会同步到达环的起点
+				 fast = 0;
+				 while(nums[fast] != nums[slow]) {
+					 fast = nums[fast];
+					 slow = nums[slow];
+				 }
+				 return nums[slow];
+			 }
+		 }
+	    }
+	
+	 public static void main(String[] args){
+		int[] nums = {3,1,3,4,2};
+		int ans = findDuplicate(nums);
+		System.out.println(ans);
+	}
+}
+
