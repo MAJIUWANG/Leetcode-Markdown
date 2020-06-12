@@ -1,0 +1,27 @@
+package leetcode;
+import java.util.*;
+import java.math.*;
+import java.io.*;
+
+public class Solution { 
+	 public static int maxArea(int[] height) {
+		 int ans = Integer.MIN_VALUE;
+		 int l = 0;
+		 int r = height.length - 1;
+		 while(l < r) {
+			 int h = Math.min(height[l], height[r]);
+			 int w = r - l;
+			 ans = Math.max(ans, h * w);
+			 if(height[l] <= height[r]) l++;
+			 else r--;
+		 }
+		 return ans;
+	    }
+	 
+	 public static void main(String[] args){
+		int[] height = {1,8,6,2,5,4,8,3,7};
+		int ans = maxArea(height);		
+		System.out.println(ans);
+	}
+}
+
