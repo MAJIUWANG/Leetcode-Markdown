@@ -1,0 +1,26 @@
+package leetcode;
+import java.util.*;
+import java.math.*;
+import java.io.*;
+
+public class Solution { 
+
+	public static int maxScoreSightseeingPair(int[] A) {
+		int[] dp = new int[A.length];
+		dp[0] = A[0];
+		dp[1] = A[0]+A[1]-1;
+		int max = dp[1];
+		for(int i = 2; i < A.length; i++) {
+			dp[i] = Math.max(dp[i-1]-A[i-1]+A[i]-1, A[i]+A[i-1]-1);
+			max = Math.max(max, dp[i]);
+		}
+	return max;
+    }
+	
+	 public static void main(String[] args){
+		int[] n = {1,2};
+		int ans = maxScoreSightseeingPair(n);		
+		System.out.println(ans);
+	}
+}
+
