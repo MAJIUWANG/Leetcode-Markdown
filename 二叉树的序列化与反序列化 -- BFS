@@ -1,0 +1,59 @@
+package leetcode;
+import java.util.*;
+import java.math.*;
+import java.io.*;
+
+public class Solution { 
+	// Encodes a tree to a single string.
+    public static String serialize(TreeNode root) {
+    	StringBuilder res = new StringBuilder("[");
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.add(root);
+        while(!q.isEmpty()) {
+        	TreeNode temp = q.poll();
+        	if(temp == null)
+        		res.append("null,");
+        	else {
+        		res.append(temp.val + ",");
+        		q.offer(temp.left);
+        		q.offer(temp.right);
+        		}
+        	}
+        	res.setLength(res.length() - 1);
+        	res.append("]");
+        	return res.toString();
+    }
+
+    // Decodes your encoded data to tree.
+    public static TreeNode deserialize(String data) {
+        String[] nodes = data.substring(1, data.length()-1).split(",");
+        TreeNode root = getNode(nodes[0]);
+        TreeNode parent = root;
+        Queue<TreeNode> p = new LinkedList<TreeNode>();
+        boolean isleft = true;
+        for(int i = 1; i < nodes.length; i++) {
+        	TreeNode temp = getNode(nodes[i]);
+        	if(isleft)
+        		parent.left = temp;
+        	else parent.right = temp;
+        	if(temp != null)
+        		p.offer(temp);
+        	
+        	isleft = !isleft;
+        	if(isleft)
+        	{
+        		parent = p.poll();
+        	}
+        	
+        }
+        return root;
+        
+    }
+    
+    private static TreeNode getNode(String val) {
+    	if(val.equals("null"))
+    		return null;
+    	else return new TreeNode(Integer.valueOf(val));
+    }
+}
+
