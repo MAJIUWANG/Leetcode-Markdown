@@ -1,0 +1,40 @@
+package leetcode;
+import java.util.*;
+import java.math.*;
+import java.io.*;
+
+public class Solution { 
+	
+	public static void QuickSort(int[] n, int s, int e) {
+		if(n.length <= 0) return;
+		if(s >= e) return;
+		int l = s, r = e;
+		int temp = n[s];
+		while(l < r) {
+			while(l < r && n[r] >= temp) r--;
+			while(l < r && n[l] <= temp) l++;
+			if(l < r) {
+				int t = n[l];
+				n[l] = n[r];
+				n[r] = t;
+			}
+		}
+		n[s] = n[l];
+		n[l] = temp;
+		QuickSort(n, s, l-1);
+		QuickSort(n, l+1, e);
+	}
+	
+	public static int findKthLargest(int[] nums, int k) {
+		QuickSort(nums, 0, nums.length-1);
+		return nums[nums.length-k];
+    }
+	
+	 public static void main(String[] args){
+		int[] nums = {3,2,3,1,2,4,5,5,6};
+		int k = 4;		
+		int ans = findKthLargest(nums,k);
+		System.out.println(ans);
+	}
+}
+
