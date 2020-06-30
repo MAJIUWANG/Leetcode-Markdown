@@ -1,0 +1,38 @@
+package leetcode;
+import java.util.*;
+import java.math.*;
+import java.io.*;
+
+public class Solution { 
+	 List<String> ans = new ArrayList<String>();
+	 private static String[] temp = {"", "*", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+	 
+	 public List<String> letterCombinations(String digits) {
+		 if(digits == null || digits.length() == 0) return new ArrayList<>();
+		 iter(digits, "", 0);
+		 return ans;
+	 }
+	
+	 public void iter(String str, String letter, int index) {
+		 if(index == str.length()) {
+			 ans.add(letter);
+			 return;
+		 }
+		char c = str.charAt(index);	 
+		int pos = c - '0';
+		String numberStr = temp[pos];
+		for(int i = 0; i < numberStr.length(); i++) {
+			iter(str, letter+numberStr.charAt(i), index+1);
+		}
+	 }
+	 
+	 /*public static void main(String[] args){
+		List<String> ans = new ArrayList<String>();
+		String digits = "23";		
+		ans = letterCombinations(digits);
+		for(int i = 0; i < ans.size(); i++) {
+			System.out.print(ans.get(i) + " ");
+		}
+	}*/
+}
+
