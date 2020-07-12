@@ -1,0 +1,44 @@
+package leetcode;
+import java.util.*;
+import java.math.*;
+import java.io.*;
+
+public class Solution { 
+	List<List<Integer>> ans = new ArrayList();
+	int n;
+	int k;
+	
+	public void track(int start, ArrayList<Integer> list, int[] nums) {
+		if(list.size() == k) {
+			ans.add(new ArrayList(list));
+			return;
+		}
+		
+		//每次加一个，然后回溯
+		for(int i = start; i < n; ++i) {
+			list.add(nums[i]);
+			track(i + 1, list, nums);
+			//去掉这次加的那个，方便组合下一个
+			list.remove(list.size()-1);
+		}
+	}
+	
+	public List<List<Integer>> subsets(int[] nums) {
+		if(nums == null || nums.length == 0) return ans;
+		n = nums.length;
+		//不同长度的子集
+		for(k = 0; k <= n; ++k) {
+			track(0, new ArrayList<Integer>(), nums);
+		}
+		return ans;
+    }
+    
+	 public static void main(String[] args){
+		 Solution sl = new Solution();
+		 int[] nums = {1,2,3};
+		 List<List<Integer>> ans = sl.subsets(nums);
+		 
+		 System.out.print(ans);
+	}
+}
+
