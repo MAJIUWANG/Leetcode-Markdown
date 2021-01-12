@@ -1,0 +1,16 @@
+class Solution(object):
+    def compressString(self, S):
+        if S == "": return ""
+        S_ans = ""
+        ch = S[0]
+        count = 0
+        for c in S:
+            if c == ch:
+                count += 1
+                continue
+            else:
+                S_ans += ch + str(count)
+                ch = c
+                count = 1
+        S_ans += ch + str(count)
+        return (S if len(S) <= len(S_ans) else S_ans)
