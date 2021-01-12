@@ -1,0 +1,40 @@
+O(n)时间 O(1)空间
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+class Solution(object):
+    def isPalindrome(self, head):
+        slow = head
+        fast = head
+        while fast != None and fast.next != None:
+            slow = slow.next
+            fast = fast.next.next
+
+        pre = None
+        while slow != None:
+            next = slow.next
+            slow.next = pre
+            pre = slow
+            slow = next
+
+        node = head
+        while pre != None:
+            if node.val != pre.val:
+                return False
+            pre = pre.next
+            node = node.next
+        return True
+
+
+if __name__ == '__main__':
+    so= Solution()
+    head = ListNode(-129)
+    head1 = ListNode(-129)
+    head.next = head1
+    k = so.isPalindrome(head)
+    print(k)
+
+
+
