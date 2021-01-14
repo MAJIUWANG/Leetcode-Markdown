@@ -1,0 +1,11 @@
+class Solution(object):
+    def majorityElement(self, nums):
+        votes = 0
+        x = 0
+        for i in nums:
+            if votes == 0:
+                x = i
+            if i == x:
+                votes += 1
+            else: votes -= 1
+        return x
