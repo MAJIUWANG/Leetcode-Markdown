@@ -1,0 +1,8 @@
+class Solution(object):
+    def prefixesDivBy5(self, A):
+        ans = []
+        pre = 0
+        for i in range(len(A)):
+            pre = (pre * 2 + A[i]) % 5
+            ans.append(pre % 5 == 0)
+        return ans
