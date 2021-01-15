@@ -1,0 +1,12 @@
+class Solution(object):
+    def isStraight(self, nums):
+        nums = sorted(nums)
+        countZero = nums.count(0)
+        countGap = 0
+        pre = nums[countZero]
+        for i in range(countZero + 1, 5):
+            if nums[i] == pre:
+                return False
+            countGap += nums[i] - pre - 1
+            pre = nums[i]
+        return countZero >= countGap
