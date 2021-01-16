@@ -1,0 +1,38 @@
+#法1 朴素方法
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        lenA = 0
+        lenB = 0
+        pA = headA
+        pB = headB
+        while pA != None:
+            lenA += 1
+            pA = pA.next
+        while pB != None:
+            lenB += 1
+            pB = pB.next
+
+        pA = headA
+        pB = headB
+        if lenA > lenB:
+            while lenA > lenB:
+                pA = pA.next
+                lenA -= 1
+        if lenB > lenA:
+            while lenB > lenA:
+                pB = pB.next
+                lenB -= 1
+        while pA != pB and pA != None:
+            pA = pA.next
+            pB = pB.next
+        return pA
+        
+#法2 “浪漫”
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        h1 = headA
+        h2 = headB
+        while h1 != h2:
+            h1 = headB if h1 == None else h1.next
+            h2 = headA if h2 == None else h2.next
+        return h1
