@@ -1,0 +1,50 @@
+class MinStack(object):
+    def __init__(self):
+        self.stack = []
+        self.stackHelp = []
+
+    def push(self, x):
+        self.stack.append(x)
+        if len(self.stackHelp) == 0:
+            self.stackHelp.append(x)
+        else:
+            if self.stackHelp[-1] >= x:
+                self.stackHelp.append(x)
+            else:
+                self.stackHelp.append(self.stackHelp[-1])
+
+    def pop(self):
+        self.stack.pop()
+        self.stackHelp.pop()
+
+    def top(self):
+        if len(self.stack) != 0:
+            return self.stack[-1]
+        else:
+            return None
+
+    def min(self):
+        if len(self.stackHelp) != 0:
+            return self.stackHelp[-1]
+        else:
+            return None
+
+# Your MinStack object will be instantiated and called as such:
+
+
+if __name__ == '__main__':
+    minStack = MinStack()
+    minStack.push(-2)
+    minStack.push(0)
+    minStack.push(-3)
+    print(minStack.min()) #-3
+    minStack.pop()
+    print(minStack.top()) #0
+    print(minStack.min()) #-2
+    #so= Solution()
+    #ans = so.isSymmetric(x1)
+    #print(ans)
+
+
+
+
