@@ -1,0 +1,42 @@
+# Definition for a binary tree node.
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution(object):
+    def depth(self, root):
+        if root == None:
+            return 0
+        return 1 + max(self.depth(root.left), self.depth(root.right))
+
+    def isBalanced(self, root):
+        if root == None:
+            return True
+        left = self.depth(root.left)
+        right = self.depth(root.right)
+        if abs(left - right) > 1:
+            return False
+        return self.isBalanced(root.left) and self.isBalanced(root.right)
+
+
+
+if __name__ == '__main__':
+    so= Solution()
+    x1 = TreeNode(3)
+    x2 = TreeNode(9)
+    x3 = TreeNode(20)
+    x4 = TreeNode(15)
+    x5 = TreeNode(7)
+    x1.left = x2
+    x1.right = x3
+    x3.left = x4
+    x3.right = x5
+    x5.left = TreeNode(0)
+    ans = so.isBalanced(x1)
+    print(ans)
+
+
+
+
