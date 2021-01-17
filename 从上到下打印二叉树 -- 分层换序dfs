@@ -1,0 +1,76 @@
+#法1
+class Solution(object):
+    def helper(self, queue, level, ans):
+        if len(queue) == 0:
+            return ans
+        count = len(queue)
+        if level%2 == 0:
+            add = []
+            while count:
+                temp = queue.popleft()
+                add.append(temp.val)
+                if temp.left != None:
+                    queue.append(temp.left)
+                if temp.right != None:
+                    queue.append(temp.right)
+                count -= 1
+                if count == 0:
+                    ans.append(add)
+                    break
+        else:
+            add = []
+            while count:
+                temp = queue.pop()
+                add.append(temp.val)
+                if temp.right != None:
+                    queue.appendleft(temp.right)
+                if temp.left != None:
+                    queue.appendleft(temp.left)
+                count -= 1
+                if count == 0:
+                    ans.append(add)
+                    break
+        ans = self.helper(queue, level+1, ans)
+        return ans
+
+    def levelOrder(self, root):
+        if root == None:
+            return []
+        queue = collections.deque()
+        queue.append(root)
+        ans = self.helper(queue, 0, [])
+        return ans
+ 
+ # 法2
+ class Solution(object):
+    def levelOrder(self, root):
+        if root == None:
+            return []
+        ans = []
+        queue = collections.deque()
+        queue.append(root)
+        level = 0
+        while len(queue) != 0:
+            add = []
+            leng = len(queue)
+            for i in range(leng):
+                if level % 2 == 0:
+                    temp = queue.popleft()
+                    add.append(temp.val)
+                    if temp.left != None:
+                        queue.append(temp.left)
+                    if temp.right != None:
+                        queue.append(temp.right)
+                    if i == leng - 1:
+                        ans.append(add)
+                else:
+                    temp = queue.pop()
+                    add.append(temp.val)
+                    if temp.right != None:
+                        queue.appendleft(temp.right)
+                    if temp.left != None:
+                        queue.appendleft(temp.left)
+                    if i == leng - 1:
+                        ans.append(add)
+            level += 1
+        return ans
