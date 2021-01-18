@@ -1,0 +1,47 @@
+import collections
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution(object):
+    def levelOrder(self, root):
+        if root == None:
+            return []
+        ans = []
+        queue = collections.deque()
+        queue.append(root)
+        while len(queue) != 0:
+            leng = len(queue)
+            add = []
+            for _ in range(leng):
+                temp = queue.popleft()
+                add.append(temp.val)
+                if temp.left != None:
+                    queue.append(temp.left)
+                if temp.right != None:
+                    queue.append(temp.right)
+                if _ == leng - 1:
+                    ans.append(add)
+                    break
+        return ans
+
+
+if __name__ == '__main__':
+    so= Solution()
+    x1 = TreeNode(3)
+    x2 = TreeNode(9)
+    x3 = TreeNode(20)
+    x4 = TreeNode(15)
+    x5 = TreeNode(7)
+    x1.left = x2
+    x1.right = x3
+    x3.left = x4
+    x3.right = x5
+    ans = so.levelOrder(x1)
+    print(ans)
+
+
+
+
