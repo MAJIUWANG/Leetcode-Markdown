@@ -1,0 +1,80 @@
+# 法1 dfs
+# Definition for singly-linked list.
+# Definition for a Node.
+class Node:
+    def __init__(self, x, next=None, random=None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+
+class Solution(object):
+    def dfs(self, head, visited):
+        if head == None:
+            return head
+        if visited.get(head) != None:
+            return visited[head]
+        copy = Node(head.val, None, None)
+        visited[head] = copy
+        copy.next = self.dfs(head.next, visited)
+        copy.random = self.dfs(head.random, visited)
+        return copy
+
+    def copyRandomList(self, head):
+        visited = {}
+        return self.dfs(head, visited)
+
+if __name__ == '__main__':
+    so= Solution()
+    x1 = Node(7)
+    x2 = Node(13)
+    x3 = Node(11)
+    x4 = Node(10)
+    x5 = Node(1)
+    x1.next = x2
+    x2.next = x3
+    x3.next = x4
+    x4.next = x5
+    x1.random = None
+    x2.random = x1
+    x3.random = x5
+    x4.random = x3
+    x5.random = x1
+    ans = so.copyRandomList(x1)
+    print(ans)
+
+# 法2 迭代优化
+class Solution(object):
+    def cloneNodes(self, head):
+        phead = head
+        while phead != None:
+            copy = Node(phead.val, None, None)
+            copy.next = phead.next
+            phead.next = copy
+            phead = phead.next.next
+
+    def connectSibling(self, head):
+        phead = head
+        while phead != None:
+            if phead.random != None:
+                phead.next.random = phead.random.next
+            else:
+                phead.next.random = None
+            phead = phead.next.next
+
+    def reconnectNodes(self, head):
+        newhead = head.next
+        pnewhead = newhead
+        while True:
+            if pnewhead.next == None:
+                break
+            pnewhead.next = pnewhead.next.next
+            pnewhead = pnewhead.next
+        return newhead
+
+    def copyRandomList(self, head):
+        if head == None:
+            return None
+        self.cloneNodes(head)
+        self.connectSibling(head)
+        ans = self.reconnectNodes(head)
+        return ans
