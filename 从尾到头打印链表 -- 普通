@@ -1,0 +1,8 @@
+class Solution(object):
+    def reversePrint(self, head):
+        phead = head
+        ans = []
+        while phead != None:
+            ans.append(phead.val)
+            phead = phead.next
+        return ans[::-1]
