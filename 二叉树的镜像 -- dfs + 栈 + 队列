@@ -1,0 +1,47 @@
+# 法1 dfs
+class Solution(object):
+    def mirrorTree(self, root):
+        if root == None:
+            return None
+        temp = root.left
+        root.left = root.right
+        root.right = temp
+        self.mirrorTree(root.left)
+        self.mirrorTree(root.right)
+        return root
+        
+# 法2 栈
+class Solution(object):
+    def mirrorTree(self, root):
+        if root == None:
+            return None
+        stack = []
+        stack.append(root)
+        while len(stack) != 0:
+            cur = stack.pop()
+            temp = cur.left
+            cur.left = cur.right
+            cur.right = temp
+            if cur.left != None:
+                stack.append(cur.left)
+            if cur.right != None:
+                stack.append(cur.right)
+        return root
+        
+# 法3 队列
+class Solution(object):
+    def mirrorTree(self, root):
+        if root == None:
+            return None
+        stack = collections.deque()
+        stack.append(root)
+        while len(stack) != 0:
+            cur = stack.popleft()
+            temp = cur.left
+            cur.left = cur.right
+            cur.right = temp
+            if cur.left != None:
+                stack.append(cur.left)
+            if cur.right != None:
+                stack.append(cur.right)
+        return root
