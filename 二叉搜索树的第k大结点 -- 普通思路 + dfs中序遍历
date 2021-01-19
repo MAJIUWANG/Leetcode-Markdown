@@ -1,0 +1,44 @@
+# 法1 普通思路
+import collections
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution(object):
+    def countNodes(self, root):
+        if root == None:
+            return 0
+        return 1 + self.countNodes(root.left) + self.countNodes(root.right)
+
+    def kthLargest(self, root, k):
+        while root:
+            countRight = self.countNodes(root.right)
+            if k == countRight + 1:
+                return root.val
+            if k <= countRight:
+                root = root.right
+            else:
+                root = root.left
+                k -= countRight + 1
+
+if __name__ == '__main__':
+    so= Solution()
+    x1 = TreeNode(5)
+    x2 = TreeNode(3)
+    x3 = TreeNode(6)
+    x4 = TreeNode(2)
+    x5 = TreeNode(4)
+    x6 = TreeNode(1)
+    x1.left = x2
+    x1.right = x3
+    x2.left = x4
+    x2.right = x5
+    x4.left = x6
+    ans = so.kthLargest(x1, 3)
+    print(ans.val)
+
+# 法2 dfs中序遍历
+
+
