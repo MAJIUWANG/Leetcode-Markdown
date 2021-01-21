@@ -1,0 +1,13 @@
+class Solution(object):
+    def singleNumber(self, nums):
+        cul = [0 for _ in range(32)]
+        for i in nums:
+            for j in range(31,-1,-1):
+                if i & 1 == 1:
+                    cul[j] += 1
+                i >>= 1
+        for i in range(len(cul)):
+            if cul[i] % 3 == 0:
+                cul[i] = "0"
+            else: cul[i] = "1"
+        return eval("0b"+"".join(cul))
