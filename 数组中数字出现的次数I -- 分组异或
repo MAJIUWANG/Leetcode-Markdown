@@ -1,0 +1,29 @@
+class Solution(object):
+    def singleNumbers(self, nums):
+        cul = 0
+        for i in nums:
+            cul ^= i
+        count = 0
+        while cul & 1 == 0:
+            cul >>= 1
+            count += 1
+        cul = 2 ** count
+
+        ans1 = 0
+        ans2 = 0
+        for i in nums:
+            if i & cul != 0:
+                ans1 ^= i
+            else: ans2 ^=i
+        return [ans1, ans2]
+
+
+if __name__ == '__main__':
+    so= Solution()
+    nums = [4,1,4,6]
+    ans = so.singleNumbers(nums)
+    print(ans)
+
+
+
+
