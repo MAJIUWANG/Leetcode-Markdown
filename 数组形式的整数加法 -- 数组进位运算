@@ -1,0 +1,31 @@
+class Solution(object):
+    def toArray(self, num):
+        arr = []
+        while num:
+            arr = [num % 10] + arr
+            num //= 10
+        return arr
+
+    def addToArrayForm(self, A, K):
+        carry = 0
+        for i in range(len(A)-1,-1,-1):
+            temp = A[i] + K % 10 + carry
+            carry = temp // 10
+            A[i] = temp % 10
+            K = K // 10
+        if carry == 1 or K != 0:
+            temp = self.toArray(K + carry)
+            A = temp + A
+        return A
+
+
+if __name__ == '__main__':
+    so= Solution()
+    nums = [0]
+    k = 523333
+    ans = so.addToArrayForm(nums, k)
+    print(ans)
+
+
+
+
