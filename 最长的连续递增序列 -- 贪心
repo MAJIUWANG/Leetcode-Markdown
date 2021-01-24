@@ -1,0 +1,10 @@
+class Solution(object):
+    def findLengthOfLCIS(self, nums):
+        if len(nums) == 0 or len(nums) == 1: return len(nums)
+        head = 0
+        leng = 1
+        for i in range(1, len(nums)):
+            if nums[i] <= nums[i-1]:
+                head = i
+            leng = max(leng, i - head + 1)
+        return leng
